@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../styles/index.css">
+ 
+  
+  </script>
+  <title>Dash</title>
+</head>
+
+<body>
+  <div class="conatiner">
+    <div class="navigation">
+      <ul>
+        <li>
+          <a href="">
+            <span class="icon">
+              <i class="fa fa-apple" aria-hidden="true"></i>
+            </span>
+            <span class="title">
+              <h2>Opção </h2>
+            </span>
+          </a>
+        </li>
+        <li >
+          <a href="">
+            <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+            <span class="title">Home</span>
+          </a>
+        </li>
+        <li class="active" onclick="event.preventDefault();importBankStatement()">
+          <a href="">
+            <span class="icon"><i class="fa fa-folder-open" aria-hidden="true"></i></span>
+            <span class="title">Importar</span>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <span class="icon"><i class="fa fa-file-text" aria-hidden="true"></i></span>
+            <span class="title">Relatórios</span>
+          </a>
+        </li>
+        <li>
+          <a id="list-products" href="" onclick="menuhandle(this.id)">
+            <span class="icon"><i class="fa fa-id-badge" aria-hidden="true"></i></span>
+            <span class="title">Contas</span>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
+            <span class="title">Settings</span>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+            <span class="title">Sign Out</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="main">
+      <div class="topbar">
+        <div class="toggle" onclick="toggleMenu()"></div>
+        <div class="search">
+          <label>
+            <input type="text" placeholder="Search here" />
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </label>
+        </div>
+        <div class="user">
+          <img src="user.jpg" alt="user image" />
+        </div>
+      </div>
+      <div class="cardBox">
+        <div class="card">
+          <div>
+            <div class="numbers">1,042</div>
+            <div class="cardName">Vencendo hoje</div>
+          </div>
+          <div class="iconBox">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="card">
+          <div>
+            <div class="numbers">1,042</div>
+            <div class="cardName">Daily Views</div>
+          </div>
+          <div class="iconBox">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="card">
+          <div>
+            <div class="numbers">1,042</div>
+            <div class="cardName">Daily Views</div>
+          </div>
+          <div class="iconBox">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="card">
+          <div>
+            <div class="numbers">1,042</div>
+            <div class="cardName">Daily Views</div>
+          </div>
+          <div class="iconBox">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="details">
+        <div class="recentOrders">
+          <div class="cardHeader">
+            <h2>Recent Orders</h2>
+            <a class="btn" href="#">View All</a>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Price</td>
+                <td>Payment</td>
+                <td>Status</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Start Redri</td>
+                <td>$1200</td>
+                <td>Paid</td>
+                <td><span class="status delivered">Redri</span></td>
+              </tr>
+              <tr>
+                <td>Start Redri</td>
+                <td>$1200</td>
+                <td>Paid</td>
+                <td><span class="status due">Redri</span></td>
+              </tr>
+              <tr>
+                <td>Start Redri</td>
+                <td>$1200</td>
+                <td>Paid</td>
+                <td><span class="status returned">Redri</span></td>
+              </tr>
+              <tr>
+                <td>Start Redri</td>
+                <td>$1200</td>
+                <td>Paid</td>
+                <td><span class="status delivered">Redri</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="recentCustomers">
+          <div class="cardHeader">
+            <h2>Recent Customers</h2>
+            <a href="#">View All</a>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="user.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    David<br><span>Italian</span>
+                  </h4>
+                </td>
+              </tr>
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="user.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    David<br><span>Italian</span>
+                  </h4>
+                </td>
+              </tr>
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="user.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    David<br><span>Italian</span>
+                  </h4>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="file" style="display:none" dirname="./Downloads" id="bankStatement"  accept=".png">
+  <script src="../scripts/index.js"></script>
+  <script src="../scripts/renderer.js"></script>
+</body>
+
+</html>

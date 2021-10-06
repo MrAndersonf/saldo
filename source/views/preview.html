@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../styles/preview.css">
+  <title>Extrato OFX</title>
+</head>
+
+<body>
+
+  <div class="table-responsive">
+    <table id="tableScale" class="table table-hover header-fixed">
+      <thead>
+        <tr>
+          <th class="date">Data</th>
+          <th class="operation">Operação</th>
+          <th class="amount">Valor</th>
+          <th class="details">Detalhes</th>
+          <th class="details">FITID</th>
+        </tr>
+      </thead>
+      <tbody id="ofx-table"></tbody>
+    </table>
+  </div>
+
+
+
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img
+          src="https://lh3.googleusercontent.com/--qf6ZRyi43E/XgYzJDAhRAI/AAAAAAAADzA/UgPD3Z1cPOYA_LFIu5HDqsJKd5yFXZbogCEwYBhgLKtADABHVOhzSzAsHdsJ612qeUeV0in1GEWd1OisUI5zsgKPX8E2XsnFKvchFkpzpOmLVOb63FYfo111AfOGQn7cDGGBm_K4xpc79vVQysNZiD8rhD0mN5GnJtdc8KPTMvtFQ3xWH_Ik3KyG0570nAj2LLoKKea2Tu9eQry6EOmGsO7Z_LvjDrAJHRdsRuoVrm-ArlaFAQ9Y4z9RfO265PH1gjYzrGiCjab1JhUngBE23MSSLV_nRR3D3Aa9kpDo-mRBogLi3CTMyapTE4kL_IZTznedvMsxLRYyklU192mP7GfG7KvJxaGLWruVnowWhxxOLcF5FD1iPCL3YGdk4OB2ZhSc0HYESVW-NMCOlQB7lE9jC1HbIITyOjFNTTizOR5bkiX0MS3LE3AqAw87t_bbwz9TL6Ei8APIVDpbIV-HkBDE-ieUuPdA8oYFDLTiOIdLlwSSAsB5-YYRvdAv0hAI7oHEjEBd67UIAlTnlSMGXp4vAzIfsLj5mpOaZqrWEcLrakyqotgMWtuo_J-QzA_v-dsnIFe2bewFkxUZ-MJILqj7spgWZUJdQos10dTF5BKeqAy0VFRmXYGrNcnoQSJVOsTI-fGdB8pAYQ2ZXP0T6QOUwj6uEiQY/w32-h32-p/Logo%2Brinc%25C3%25A3o%2B%25281%2529.jpg"
+          class="rounded me-2" alt="..." />
+        <strong class="me-auto">Fazenda Rincão Gaúcho</strong>
+        <small><span id="spanTime"></span></small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">Operação realizada com sucesso.</div>
+    </div>
+  </div>
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+    integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
+  <script src="../scripts/preview.js"></script>
+  <script src="../scripts/renderer.js"></script>
+  <script>
+    const querystring = require('querystring');
+    let query = querystring.parse(global.location.search);
+    let data = JSON.parse(query['?data'])
+    console.log(data)
+    let dataBank = data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST
+    showShippingCompanies(dataBank)
+
+
+    function showShippingCompanies(data) {
+      let tableBody = document.getElementById("ofx-table");
+      tableBody.innerHTML = "";
+      data.STMTTRN.forEach((el) => {
+        
+        
+        let row = `<tr>
+          <td class="date">${parseDate(el.DTPOSTED)}</th>
+          <td class="operation">${el.TRNTYPE === 'CREDIT' ? "CRÉDITO":"DÉBITO"}</td>
+          <td class="amount" style="padding-left:${el.TRNTYPE != 'CREDIT'? '0PX':'6PX'}">${Number(el.TRNAMT).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
+          <td class="details">${el.MEMO}</td>
+          <td class="details">${el.REFNUM ? el.REFNUM:'-'}</td>
+          </tr>`;
+        let newRow = tableBody.insertRow(tableBody.rows.length);
+        newRow.innerHTML = row;
+      });
+    }
+
+    function parseDate(date){
+      let rawDate = date.slice(0,8);
+        let day = rawDate.substring(6,8)
+        let month = rawDate.substring(4,6)
+        let year = rawDate.substring(0,4)
+        return `${day}/${month}/${year}`
+    }
+  </script>
+</body>
+
+</html>

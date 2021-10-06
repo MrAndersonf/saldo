@@ -30,10 +30,10 @@
       <tbody id="ofx-table"></tbody>
       <tfoot class="tfoot">
         <tr>
-            <th colspan="0">Totals</th>
-            <td>21,000</td>
+          <th colspan="0">Totals</th>
+          <td>21,000</td>
         </tr>
-    </tfoot>
+      </tfoot>
     </table>
   </div>
 
@@ -77,26 +77,26 @@
       let tableBody = document.getElementById("ofx-table");
       tableBody.innerHTML = "";
       data.STMTTRN.forEach((el) => {
-        
-        
+
+
         let row = `<tr>
           <td class="date">${parseDate(el.DTPOSTED)}</th>
-          <td class="docId">${el.FITID.split(" ")[0].length < 6 ? '-': el.FITID.split(" ")[0]}</td>
-          <td class="historic">${el.MEMO} - ${el.REFNUM != undefined ? el.REFNUM.substring(el.REFNUM.indexOf(' '),el.REFNUM.length-1):""}</td>
-          <td class="debit">${el.TRNTYPE != 'CREDIT' ? Number(el.TRNAMT).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}): "-"}</td>
-          <td class="credit">${el.TRNTYPE === 'CREDIT' ? Number(el.TRNAMT).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}): "-"}</td>
+          <td class="docId">${el.FITID.split(" ")[0].length < 6 ? '-' : el.FITID.split(" ")[0]}</td>
+          <td class="historic">${el.MEMO} - ${el.REFNUM != undefined ? el.REFNUM.substring(el.REFNUM.indexOf(' '), el.REFNUM.length - 1) : ""}</td>
+          <td class="debit">${el.TRNTYPE != 'CREDIT' ? Number(el.TRNAMT).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : "-"}</td>
+          <td class="credit">${el.TRNTYPE === 'CREDIT' ? Number(el.TRNAMT).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : "-"}</td>
           </tr>`;
         let newRow = tableBody.insertRow(tableBody.rows.length);
         newRow.innerHTML = row;
       });
     }
 
-    function parseDate(date){
-      let rawDate = date.slice(0,8);
-        let day = rawDate.substring(6,8)
-        let month = rawDate.substring(4,6)
-        let year = rawDate.substring(0,4)
-        return `${day}/${month}/${year}`
+    function parseDate(date) {
+      let rawDate = date.slice(0, 8);
+      let day = rawDate.substring(6, 8)
+      let month = rawDate.substring(4, 6)
+      let year = rawDate.substring(0, 4)
+      return `${day}/${month}/${year}`
     }
   </script>
 </body>

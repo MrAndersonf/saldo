@@ -252,6 +252,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
+  font-size: 15;
 }
 
 .details table thead td {

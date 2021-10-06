@@ -18,16 +18,22 @@
 
   <div class="table-responsive">
     <table id="tableScale" class="table table-hover header-fixed">
-      <thead>
+      <thead class="thead">
         <tr>
           <th class="date">Data</th>
-          <th class="operation">Operação</th>
-          <th class="amount">Valor</th>
-          <th class="details">Detalhes</th>
-          <th class="details">FITID</th>
+          <th class="docId">Documento</th>
+          <th class="historic">Histórico</th>
+          <th class="debit">Débito</th>
+          <th class="credit">Crédito</th>
         </tr>
       </thead>
       <tbody id="ofx-table"></tbody>
+      <tfoot class="tfoot">
+        <tr>
+            <th colspan="0">Totals</th>
+            <td>21,000</td>
+        </tr>
+    </tfoot>
     </table>
   </div>
 
@@ -75,10 +81,10 @@
         
         let row = `<tr>
           <td class="date">${parseDate(el.DTPOSTED)}</th>
-          <td class="operation">${el.TRNTYPE === 'CREDIT' ? "CRÉDITO":"DÉBITO"}</td>
-          <td class="amount" style="padding-left:${el.TRNTYPE != 'CREDIT'? '0PX':'6PX'}">${Number(el.TRNAMT).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
-          <td class="details">${el.MEMO}</td>
-          <td class="details">${el.REFNUM ? el.REFNUM:'-'}</td>
+          <td class="docId">${el.FITID.split(" ")[0].length < 6 ? '-': el.FITID.split(" ")[0]}</td>
+          <td class="historic">${el.MEMO} - ${el.REFNUM != undefined ? el.REFNUM.substring(el.REFNUM.indexOf(' '),el.REFNUM.length-1):""}</td>
+          <td class="debit">${el.TRNTYPE != 'CREDIT' ? Number(el.TRNAMT).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}): "-"}</td>
+          <td class="credit">${el.TRNTYPE === 'CREDIT' ? Number(el.TRNAMT).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}): "-"}</td>
           </tr>`;
         let newRow = tableBody.insertRow(tableBody.rows.length);
         newRow.innerHTML = row;

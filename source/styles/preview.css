@@ -77,7 +77,7 @@
 
   .header-fixed>tbody {
     overflow-y: auto;
-    height: 500px;
+    height: 70vh;
   }
 
   .header-fixed>tbody>tr>td,
@@ -86,25 +86,37 @@
   }
 
   .date {
-    width: 10%;
+    width: 7%;
   }
 
   .docId {
-    width: 10%;
+    width: 9%;
   }
 
   .debit {  
-    width: 16%;
+    width: 11%;
     color: red;
+    font-weight: 700;
   }
 
   .credit {   
-    width: 16%;
+    width: 11%;
     color: blue;
+    font-weight: 700;
+  }
+
+  .debitLabel {  
+    width: 11%;
+  
+  }
+
+  .creditLabel {   
+    width: 11%;
+
   }
 
   .historic {
-    width: 48%;
+    width: 62%;
   }
 
   .driver {

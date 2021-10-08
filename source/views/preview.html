@@ -15,25 +15,48 @@
 </head>
 
 <body>
-
+  <view style="display: flex; height:20vh; width:100%;flex-direction: column;justify-content: center;align-items: center; background-color: #f7f7f7;">
+    <view style="display:flex; flex-direction: row;width:50%; justify-content:space-between;">
+      <view style="display:flex;flex-direction: column; align-items: center;margin-top:20px; ">
+        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Código do Banco</label>
+        <span id="bankId"></span>
+      </view>
+      <view style="display:flex;flex-direction: column;align-items: center;margin-top:20px">
+        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Nome do Banco</label>
+        <span id="bankName"></span>
+      </view>
+      <view style="display:flex;flex-direction: column; align-items: center;margin-top:20px">
+        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Agência</label>
+        <span id="accountAg"></span>
+      </view>
+      <view style="display:flex;flex-direction: column; align-items: center;margin-top:20px">
+        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Conta</label>
+        <span id="accountNumber"></span>
+      </view>
+    </view>
+    <view style="display:flex; flex-direction: row;width:18%; justify-content:space-between;margin-top: 15px;">
+      <view style="display:flex;flex-direction: column; align-items: center;">
+        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Início</label>
+        <span id="start"></span>
+      </view>
+      <view style="display:flex;flex-direction: column;align-items: center;">
+        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Fim</label>
+        <span id="end"></span>
+      </view>     
+    </view>
+  </view>
   <div class="table-responsive">
-    <table id="tableScale" class="table table-hover header-fixed">
-      <thead class="thead">
+    <table id="tableScale" class="table table-hover table-striped header-fixed ">
+      <thead class="thead table-dark">
         <tr>
           <th class="date">Data</th>
           <th class="docId">Documento</th>
           <th class="historic">Histórico</th>
-          <th class="debit">Débito</th>
-          <th class="credit">Crédito</th>
+          <th class="debitLabel">Débito</th>
+          <th class="creditLabel">Crédito</th>
         </tr>
       </thead>
       <tbody id="ofx-table"></tbody>
-      <tfoot class="tfoot">
-        <tr>
-          <th colspan="0">Totals</th>
-          <td>21,000</td>
-        </tr>
-      </tfoot>
     </table>
   </div>
 
@@ -69,16 +92,27 @@
     let query = querystring.parse(global.location.search);
     let data = JSON.parse(query['?data'])
     console.log(data)
-    let dataBank = data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST
+    document.getElementById('bankId').textContent = data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKACCTFROM.BANKID
+    let accountData = data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKACCTFROM.ACCTID.split('00000')
+    console.log(accountData)
+    document.getElementById('bankName').textContent = data.OFX.SIGNONMSGSRSV1.SONRS.FI.ORG.split(',')[0]
+    document.getElementById('accountAg').textContent = accountData[0]
+    document.getElementById('accountNumber').textContent = accountData[1]
+    document.getElementById('start').textContent = parseDate(data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.DTSTART)
+    document.getElementById('end').textContent = parseDate(data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.DTEND)
+
+    let dataBank = data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS
     showShippingCompanies(dataBank)
 
 
     function showShippingCompanies(data) {
+      let debits = 0
+      let credits = 0
+      
       let tableBody = document.getElementById("ofx-table");
       tableBody.innerHTML = "";
-      data.STMTTRN.forEach((el) => {
-
-
+      data.BANKTRANLIST.STMTTRN.forEach((el) => {
+        el.TRNTYPE != 'CREDIT'? debits+=Number(el.TRNAMT):credits+=Number(el.TRNAMT)
         let row = `<tr>
           <td class="date">${parseDate(el.DTPOSTED)}</th>
           <td class="docId">${el.FITID.split(" ")[0].length < 6 ? '-' : el.FITID.split(" ")[0]}</td>
@@ -88,7 +122,10 @@
           </tr>`;
         let newRow = tableBody.insertRow(tableBody.rows.length);
         newRow.innerHTML = row;
+        
       });
+
+      console.log(`Débitos = ${debits.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}   -   Créditos = ${credits.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}  -  Saldo = ${(debits+credits).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}`)
     }
 
     function parseDate(date) {

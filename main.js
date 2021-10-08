@@ -44,8 +44,9 @@ ipcMain.on('select-bank-statement', (event) => {
 let ofxPreview;
 ipcMain.on('render-ofx-data',(event, data)=>{
     ofxPreview =  new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1100,
+        height: 640,
+        
         webPreferences: {
             nodeIntegration: true
         }

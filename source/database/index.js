@@ -59,6 +59,29 @@ module.exports = {
         return result
     },
 
+    find_account_number(number) {
+        let directory = this.accounts();
+        let found;
+        directory.forEach(account =>{
+            if(account.number == number){
+                found = account;
+            }
+        } ) 
+        return found
+    },
+
+    account_status(number){
+        
+        let account = this.find_account_number(number) 
+        console.log(account)
+        if(account.status == 'active'){
+            account.status = 'inactive'
+        }else{
+            account.status = 'active'
+        }
+        this.createAccount(account.id, account)
+    },
+
     
 
     get_files(pathfile) {

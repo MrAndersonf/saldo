@@ -446,6 +446,98 @@
     </div>
   </div>
 
+  <div class="modal fade" id="manageAccount" tabindex="-1" aria-labelledby="createAccountLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createAccountLabel">Gerênciar Conta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="col-md-12">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="accountEditOwner" placeholder="Proprietário">
+                <label for="accountEditOwner">Proprietário</label>
+                <div id="error-message-owner" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="accountEditBank" placeholder="Banco">
+                <label for="accountEditBank">Banco</label>
+                <div id="error-message-bank" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="accountEditAgency" placeholder="Agência">
+                <label for="accountEditAgency">Agência</label>
+                <div id="error-message-agency" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="accountEditNumber" placeholder="Conta">
+                <label for="accountEditNumber">Conta</label>
+                <div id="error-message-account" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="accountEditDigit" placeholder="Dígito">
+                <label for="accountEditDigit">Dígito</label>
+                <div id="error-message-digit" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="accountEditBalance" placeholder="Saldo Atual">
+                <label for="accountEditBalance">Saldo Atual</label>
+                <div id="error-message-balance" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="date" class="form-control" id="balanceEditDate" placeholder="Data do Saldo">
+                <label for="balanceEditDate">Data do Saldo</label>
+                <div id="error-message-date" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <button class="btn btn-danger w-100">Deletar</button>
+                <div id="error-message-date" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <button id="accountStatusBtn" class="btn w-100" onclick="handleAccountStatus(event)"></button>
+                <div id="error-message-date" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <button class="btn btn-primary w-100">Sair</button>
+                <div id="error-message-date" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
     <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">

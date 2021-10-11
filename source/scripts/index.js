@@ -115,7 +115,8 @@ function insertAccount() {
       number: number.value,
       digit: digit.value,
       balance: balance.value,
-      date: date.value
+      date: date.value,
+      status: "active"
     })
     notify("Conta criada com sucesso.")
     modalAccount.hide()
@@ -236,7 +237,7 @@ async function loadAccountsTable() {
         </h4>
       </td>
       <td class="btnUserAc">
-        <button class="iconBtn" onclick="modalHandleAccount('${JSON.stringify(account).split('"').join('"')}')">
+        <button class="iconBtn" onclick="modalHandleAccount('${account.number}')">
           <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
         </button>
       </td>
@@ -247,8 +248,33 @@ async function loadAccountsTable() {
   })
 }
 
-function modalHandleAccount(account){
-  console.log(JSON.parse(account))
+async function modalHandleAccount(number){
+  let account = await Account.find(number)
+  document.getElementById('accountEditOwner').value = account.owner;
+  document.getElementById('accountEditBank').value = account.bank;
+  document.getElementById('accountEditAgency').value = account.agency;
+  document.getElementById('accountEditNumber').value = account.number;
+  document.getElementById('accountEditDigit').value = account.digit;
+  document.getElementById('accountEditBalance').value = account.balance;
+  document.getElementById('balanceEditDate').value = account.date;
+  let btn = document.getElementById('accountStatusBtn')
+  if(account.status == 'active'){
+    btn.classList.remove('btn-success')
+    btn.classList.add('btn-warning')
+    btn.innerText = "Inativar"
+  }else{
+    btn.classList.remove('btn-warning')
+    btn.classList.add('btn-success')
+    btn.innerText = "Reativar"
+  }
+  modalManageAccount.show()
+}
+
+function handleAccountStatus(e){
+  e.preventDefault()
+  let account = document.getElementById('accountEditNumber')
+  console.log(account.value)
+  Account.status(account.value)
 }
 
 function notify(message) {
@@ -266,6 +292,8 @@ function notify(message) {
 var modalAccount = new bootstrap.Modal(document.getElementById('createAccount'))
 var modalUser = new bootstrap.Modal(document.getElementById('createUser'))
 var modalBank = new bootstrap.Modal(document.getElementById('createBankModal'))
+var modalManageAccount = new bootstrap.Modal(document.getElementById('manageAccount'))
+
 
 
 var hiddenModalAccount = document.getElementById('createAccount')

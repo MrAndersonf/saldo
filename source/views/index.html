@@ -5,19 +5,26 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
   <link rel="stylesheet" href="../styles/index.css">
- 
-  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
   </script>
   <title>Dash</title>
 </head>
 
 <body>
   <div class="conatiner">
-    <div class="navigation">
+    <div class="navigations">
       <ul>
         <li>
           <a href="">
@@ -29,10 +36,16 @@
             </span>
           </a>
         </li>
-        <li >
+        <li>
           <a href="">
             <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
             <span class="title">Home</span>
+          </a>
+        </li>
+        <li class="active" onclick="event.preventDefault();showCreateAccountModal()">
+          <a href="">
+            <span class="icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+            <span class="title">Cadastrar</span>
           </a>
         </li>
         <li class="active" onclick="event.preventDefault();importBankStatement()">
@@ -81,7 +94,7 @@
         </div>
       </div>
       <div class="cardBox">
-        <div class="card">
+        <div class="cards">
           <div>
             <div class="numbers">1,042</div>
             <div class="cardName">Vencendo hoje</div>
@@ -90,7 +103,7 @@
             <i class="fa fa-eye" aria-hidden="true"></i>
           </div>
         </div>
-        <div class="card">
+        <div class="cards">
           <div>
             <div class="numbers">1,042</div>
             <div class="cardName">Daily Views</div>
@@ -99,7 +112,7 @@
             <i class="fa fa-eye" aria-hidden="true"></i>
           </div>
         </div>
-        <div class="card">
+        <div class="cards">
           <div>
             <div class="numbers">1,042</div>
             <div class="cardName">Daily Views</div>
@@ -108,7 +121,7 @@
             <i class="fa fa-eye" aria-hidden="true"></i>
           </div>
         </div>
-        <div class="card">
+        <div class="cards">
           <div>
             <div class="numbers">1,042</div>
             <div class="cardName">Daily Views</div>
@@ -122,7 +135,7 @@
         <div class="recentOrders">
           <div class="cardHeader">
             <h2>Recent Orders</h2>
-            <a class="btn" href="#">View All</a>
+            <a class="btns" href="#">View All</a>
           </div>
           <table>
             <thead>
@@ -163,45 +176,123 @@
         </div>
         <div class="recentCustomers">
           <div class="cardHeader">
-            <h2>Recent Customers</h2>
+            <h2>Contas</h2>
             <a href="#">View All</a>
           </div>
           <table>
-            <tbody>
+            <tbody id="accountsTable">
               <tr>
                 <td width="60px">
                   <div class="imgBx">
-                    <img src="user.jpg" alt="" />
+                    <img src="../assets/user.jpg" alt="" />
                   </div>
                 </td>
                 <td>
-                  <h4>
-                    David<br><span>Italian</span>
+                  <h4 style="display: flex; flex-direction: column;">
+                    Anderson Feitosa<br>
+                    <span>748 - Banco do Brasil</span>
+                    <span>0809 - 2041-5</span>
                   </h4>
+                </td>
+                <td style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 70px; height:80px">
+                  <button style="background-color:white; border: none;">
+                    <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+                  </button>
                 </td>
               </tr>
               <tr>
                 <td width="60px">
                   <div class="imgBx">
-                    <img src="user.jpg" alt="" />
+                    <img src="../../../../Downloads/WhatsApp Image 2021-09-13 at 19.48.57.jpeg" alt="" />
                   </div>
                 </td>
                 <td>
-                  <h4>
-                    David<br><span>Italian</span>
+                  <h4 style="display: flex; flex-direction: column;">
+                    Anderson Feitosa<br>
+                    <span>748 - Banco do Brasil</span>
+                    <span>0809 - 2041-5</span>
                   </h4>
+                </td>
+                <td style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 70px; height:80px">
+                  <button style="background-color:white; border: none;">
+                    <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+                  </button>
                 </td>
               </tr>
               <tr>
                 <td width="60px">
                   <div class="imgBx">
-                    <img src="user.jpg" alt="" />
+                    <img src="../assets/user.jpg" alt="" />
                   </div>
                 </td>
                 <td>
-                  <h4>
-                    David<br><span>Italian</span>
+                  <h4 style="display: flex; flex-direction: column;">
+                    Anderson Feitosa<br>
+                    <span>748 - Banco do Brasil</span>
+                    <span>0809 - 2041-5</span>
                   </h4>
+                </td>
+                <td style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 70px; height:80px">
+                  <button style="background-color: transparent; border: none;">
+                    <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="imgTd">
+                  <div class="imgBx">
+                    <img src="../assets/user.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4 class="userAc">
+                    Anderson Feitosa<br>
+                    <span>748 - Banco do Brasil</span>
+                    <span>0809 - 2041-5</span>
+                  </h4>
+                </td>
+                <td class="btnUserAc">
+                  <button class="iconBtn">
+                    <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="../assets/user.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4 style="display: flex; flex-direction: column;">
+                    Anderson Feitosa<br>
+                    <span>748 - Banco do Brasil</span>
+                    <span>0809 - 2041-5</span>
+                  </h4>
+                </td>
+                <td style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 70px; height:80px">
+                  <button style="background-color:white; border: none;">
+                    <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="../assets/user.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4 style="display: flex; flex-direction: column;">
+                    Anderson Feitosa<br>
+                    <span>748 - Banco do Brasil</span>
+                    <span>0809 - 2041-5</span>
+                  </h4>
+                </td>
+                <td style="display: flex; flex-direction: column; justify-content: center; align-items: center;width: 70px; height:80px">
+                  <button style="background-color:white; border: none;">
+                    <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -210,7 +301,166 @@
       </div>
     </div>
   </div>
-  <input type="file" style="display:none" dirname="./Downloads" id="bankStatement"  accept=".png">
+
+  <div class="modal fade" id="createAccount" tabindex="-1" aria-labelledby="createAccountLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createAccountLabel">Criar Conta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="col-md-12">
+              <div class="form-floating">
+                <select class="form-select" id="accountOwner" onchange="handleChange(this.value)">
+                  <option selected value="">Selecione</option>
+                  <option value="createUser">Criar Usuário</option>
+                </select>
+                <label for="accountOwner">Proprietário</label>
+                <div id="error-message-owner" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-floating">
+                <select class="form-select" id="accountBank" onchange="handleChange(this.value)">
+                  <option selected value="">Selecione</option>
+                  <option value="createBank">Criar Banco</option>
+                </select>
+                <label for="accountBank">Banco</label>
+                <div id="error-message-bank" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="accountAgency" placeholder="Agência">
+                <label for="accountAgency">Agência</label>
+                <div id="error-message-agency" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="accountNumber" placeholder="Conta">
+                <label for="accountNumber">Conta</label>
+                <div id="error-message-account" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="accountDigit" placeholder="Dígito">
+                <label for="accountDigit">Dígito</label>
+                <div id="error-message-digit" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="accountBalance" placeholder="Saldo Inicial"
+                  onkeydown="handleBalance(event,this.value)">
+                <label for="accountBalance">Saldo Inicial</label>
+                <div id="error-message-balance" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="date" class="form-control" id="balanceDate" placeholder="Data do Saldo">
+                <label for="balanceDate">Data do Saldo</label>
+                <div id="error-message-date" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success" onclick="event.preventDefault();insertAccount()">Criar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="createUser" tabindex="-1" aria-labelledby="createAccountLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createAccountLabel">Criar Usuário</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="col-md-12">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="userName" placeholder="Nome do Usuário">
+                <label for="userName">Nome do Usuário</label>
+                <div id="error-message" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="event.preventDefault();insertUser()">Criar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="createBankModal" tabindex="-1" aria-labelledby="createAccountLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createAccountLabel">Criar Banco</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="col-md-12">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="bankCode" placeholder="Nome do Usuário">
+                <label for="bankCode">Código do Banco</label>
+                <div id="error-bank-code" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="bankName" placeholder="Nome do Usuário">
+                <label for="bankName">Nome do Banco</label>
+                <div id="error-bank-name" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="event.preventDefault();insertBank()">Criar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="../assets/logo.png" class="rounded me-2" style="width:32px;height: 32px;" alt="...">
+        <strong class="me-auto">Opção</strong>
+        <small id="date-time"></small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div id="notification" class="toast-body">
+
+      </div>
+    </div>
+  </div>
+
+
   <script src="../scripts/index.js"></script>
   <script src="../scripts/renderer.js"></script>
 </body>

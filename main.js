@@ -7,12 +7,15 @@ app.allowRendererProcessReuse = false
 
 require('electron-reload')(__dirname, {
     electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
-});
+  });
+
 
 function createWindow() {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
+        frame: false,
+        fullscreen: true,
         webPreferences: {
             nodeIntegration: true
         }

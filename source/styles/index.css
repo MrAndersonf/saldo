@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-
 * {
   margin: 0;
   padding: 0;
@@ -16,48 +15,48 @@ body {
   width: 100%;
 }
 
-.navigation {
+.navigations {
   position: fixed;
   width: 300px;
   height: 100%;
-  background: linear-gradient(180deg, #003147,rgb(6, 6, 190));
+  background: linear-gradient(180deg, #003147, rgb(6, 6, 190));
   transition: 0.5s;
 }
 
-.navigation.active {
+.navigations.active {
   width: 60px;
 }
 
-.navigation ul {
+.navigations ul {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
 }
 
-.navigation ul li {
+.navigations ul li {
   position: relative;
   width: 100%;
   list-style: none;
 }
 
-.navigation ul li:hover {
+.navigations ul li:hover {
   background: #03a9f4;
 }
 
-.navigation ul .active {
+.navigations ul .active {
   background: #03a9f4;
 }
 
-.navigation ul li:nth-child(1) {
+.navigations ul li:nth-child(1) {
   margin-bottom: 20px;
 }
 
-.navigation ul li:nth-child(1):hover {
+.navigations ul li:nth-child(1):hover {
   background: transparent;
 }
 
-.navigation ul li a {
+.navigations ul li a {
   position: relative;
   display: block;
   width: 100%;
@@ -66,7 +65,7 @@ body {
   color: #fff;
 }
 
-.navigation ul li a .icon {
+.navigations ul li a .icon {
   position: relative;
   display: block;
   min-width: 60px;
@@ -75,12 +74,12 @@ body {
   text-align: center;
 }
 
-.navigation ul li a .icon .fa {
+.navigations ul li a .icon .fa {
   color: #fff;
   font-size: 24px;
 }
 
-.navigation ul li a .title {
+.navigations ul li a .title {
   position: relative;
   display: block;
   padding: 0 10px;
@@ -189,7 +188,7 @@ body {
   grid-gap: 20px;
 }
 
-.cardBox .card {
+.cardBox .cards {
   position: relative;
   background: #fff;
   padding: 20px;
@@ -198,17 +197,17 @@ body {
   cursor: pointer;
 }
 
-.cardBox .card .numbers {
+.cardBox .cards .numbers {
   position: relative;
   font-size: 2em;
   font-weight: 500;
 }
 
-.cardBox .card .carName {
+.cardBox .cards .carName {
   color: #999;
 }
 
-.cardBox .card .iconBox {
+.cardBox .cards .iconBox {
   font-size: 2.5em;
   color: #03a9f4;
 }
@@ -222,6 +221,7 @@ body {
   grid-gap: 20px;
   grid-template-columns: 2fr 1fr;
 }
+
 .details .recentOrders {
   position: relative;
   min-width: 530px;
@@ -239,7 +239,7 @@ body {
   font-weight: 600;
 }
 
-.btn {
+.btns {
   position: relative;
   padding: 5px 10px;
   background: #03a9f4;
@@ -276,19 +276,16 @@ body {
   padding: 9px 5px;
 }
 
-.details .recentOrders table thead tr td:last-child,
-.details .recentOrders table tbody tr td:last-child {
+.details .recentOrders table thead tr td:last-child, .details .recentOrders table tbody tr td:last-child {
   text-align: right;
 }
 
-.details .recentOrders table thead tr td:nth-child(2),
-.details .recentOrders table tbody tr td:nth-child(2) {
+.details .recentOrders table thead tr td:nth-child(2), .details .recentOrders table tbody tr td:nth-child(2) {
   text-align: right;
   padding-right: 20px;
 }
 
-.details .recentOrders table thead tr td:nth-child(3),
-.details .recentOrders table tbody tr td:nth-child(3) {
+.details .recentOrders table thead tr td:nth-child(3), .details .recentOrders table tbody tr td:nth-child(3) {
   text-align: center;
 }
 
@@ -355,8 +352,12 @@ body {
   color: #999;
 }
 
-.details .recentCustomers table tr:hover,
-.details .recentCustomers table tr:hover td h4 span {
+.details .recentCustomers table tr:hover, .details .recentCustomers table tr:hover td h4 span {
+  background: #03a9f4;
+  color: #fff;
+}
+
+.btnUserAc .iconBtn:hover{
   background: #03a9f4;
   color: #fff;
 }
@@ -372,10 +373,10 @@ body {
 }
 
 @media (max-width: 992px) {
-  .navigation {
+  .navigations {
     left: -300px;
   }
-  .navigation.active {
+  .navigations.active {
     left: 0;
     width: 300px;
   }
@@ -412,12 +413,12 @@ body {
   .details .recentOrders table {
     width: 600px;
   }
-  .navigation {
+  .navigations {
     width: 100%;
     left: -100%;
     z-index: 1000;
   }
-  .navigation.active {
+  .navigations.active {
     width: 100%;
     left: 0;
   }
@@ -430,9 +431,38 @@ body {
   .toggle.active::before {
     color: #fff;
   }
-  .main,
-  .main.active {
+  .main, .main.active {
     width: 100%;
     left: 0;
   }
+}
+
+.buttonAdd {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.imgTd {
+  width: 60px;
+}
+
+.userAc {
+  display: flex;
+  flex-direction: column;
+}
+
+.btnUserAc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 80px
+}
+
+.iconBtn {
+  background-color: transparent;
+  border: none;
 }

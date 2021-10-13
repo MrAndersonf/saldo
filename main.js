@@ -45,8 +45,10 @@ ipcMain.on('select-bank-statement', (event) => {
     event.reply('bank-statement-path', file[0])
 })
 
-let ofxPreview;
+let ofxPreview = null;
 ipcMain.on('render-ofx-data', (event, data) => {
+    if (ofxPreview != null)
+    return
     ofxPreview = new BrowserWindow({
         fullscreen: true,
         frame: false,
@@ -66,8 +68,9 @@ ipcMain.on('system-sign-out', (e) => {
 })
 
 
-let account;
+let account = null;
 ipcMain.on('open-account-create', (event) => {
+   
     account = new BrowserWindow({
         width: 600,
         height: 320,
@@ -76,15 +79,25 @@ ipcMain.on('open-account-create', (event) => {
             nodeIntegration: true
         }
     })
+    account.on('close', () => {
+        account = null
+    })
     account.webContents.loadFile('./source/views/createAccount.html')
 })
 
 
 
-ipcMain.on('new-user-created', (event) => {
-    event.reply('notify')
+ipcMain.on('new-user-created', (event, data) => {
+    event.reply('notify', data)
 })
 
-ipcMain.on("close-ofx-window", (event) => {    
-    event.reply('notify')    
+ipcMain.on("close-ofx", (event, data) => {
+    event.reply('notify',(event,data))
+    ofxPreview.close()
 })
+
+ipcMain.on('close-window-create-account', () => {
+    account.close();
+})
+
+

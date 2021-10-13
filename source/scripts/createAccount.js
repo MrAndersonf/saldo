@@ -1,21 +1,22 @@
 
+
 const path = require('path');
 const User = require(path.resolve(__dirname, '../models/User.js'))
 const Bank = require(path.resolve(__dirname, '../models/Bank.js'))
 const Account = require(path.resolve(__dirname, '../models/Account.js'))
+const Currency = require(path.resolve(__dirname, '../util/Currency.js'))
 
- 
 window.addEventListener('load', function () {
-    loadUsers()
-    loadBanks()
-  })
+  loadUsers()
+  loadBanks()
+})
 
 async function insertUser() {
   let userName = document.getElementById('userName')
   if (userName.value.length > 2) {
     userName.classList.remove('is-invalid');
     await User.create({ name: userName.value })
-    ipcRenderer.send('new-user-created')
+    ipcRenderer.send('new-user-created', { title: "Sucesso", body: "Banco criado com sucesso" })
     modalCreateUserHide()
   } else {
     userName.classList.add('is-invalid');
@@ -23,7 +24,8 @@ async function insertUser() {
   }
 }
 
-function insertAccount() {
+async function insertAccount(e) {
+  e.preventDefault()
   let owner = document.getElementById('accountOwner')
   let bank = document.getElementById('accountBank')
   let agency = document.getElementById('accountAgency')
@@ -64,23 +66,49 @@ function insertAccount() {
   ]
   let result = validate(fields)
   if (!result) {
-    notify(`Revise o formulário.`)
+    ipcRenderer.send('new-user-created',{ title: "Aviso", body: "Preencha todos os campos." })
+    return
   } else {
-    Account.create({
+    await Account.create({
       owner: owner.value,
       bank: bank.value,
       agency: agency.value,
       number: number.value,
       digit: digit.value,
-      balance: balance.value,
-      date: date.value,
+      balance: {
+        date: new Date(date.value),
+        amount: balance.value,
+      },
       status: "active"
-    })
-    notify("Conta criada com sucesso.")
-    modalAccount.hide()
-    loadAccountsTableActive()
+    })   
+  }
+  ipcRenderer.send('new-user-created',{ title: "Sucesso", body: "Conta criada com sucesso" })
+  modalCreateAccountHide()
+}
+
+function handleBalance(e, amount) {
+  e.preventDefault()
+  let input = document.getElementById('accountBalance')
+  if (e.keyCode >= 96 && e.keyCode <= 105 || e.keyCode >= 48 && e.keyCode <= 57) {
+    let sanitized = Currency.sanitizeCurrency(amount)
+    let parsetToNum = sanitized + e.key
+    let readyNumber = parsetToNum / 100
+    input.value = ''
+    input.value = Currency.formater(readyNumber)
+  }
+  if (e.keyCode == 8) {
+    let sanitized = Currency.sanitizeCurrency(amount)
+    let removedIndex = sanitized.slice(0, -1)
+    let readyNumber = removedIndex / 100
+    input.value = ''
+    input.value = Currency.formater(readyNumber)
+
+  }
+  if (e.keyCode == 9) {
+    document.getElementById('balanceDate').focus()
   }
 }
+
 
 async function insertBank() {
   let code = document.getElementById('bankCode')
@@ -100,7 +128,7 @@ async function insertBank() {
     notify(`Revise o formulário.`)
   } else {
     await Bank.create({ code: code.value, name: name.value })
-    notify(`Banco ${name.value} criado. `)
+    ipcRenderer.send('new-user-created', {title:"Sucesso",body:"Banco criado com sucesso"})
     modalCreateBankHide()
   }
 }
@@ -192,7 +220,7 @@ async function loadBanks() {
 
 var modalCreateUser = new bootstrap.Modal(document.getElementById('createUser'))
 var modalCreateBank = new bootstrap.Modal(document.getElementById('createBankModal'));
-  
+
 
 function modalCreateAccountHide() {
   document.getElementById('accountOwner').selectedIndex = "0";
@@ -207,13 +235,13 @@ function modalCreateAccountHide() {
 }
 
 function modalCreateUserShow() {
-    modalCreateUser.show();
+  modalCreateUser.show();
 }
 
 function modalCreateUserHide() {
   document.getElementById('userName').value = '';
   loadUsers()
-  modalCreateUser.hide(); 
+  modalCreateUser.hide();
 }
 
 function modalCreateBankShow() {
@@ -222,7 +250,7 @@ function modalCreateBankShow() {
 
 function modalCreateBankHide() {
   document.getElementById('bankCode').value = '';
-  document.getElementById('bankName').value = ''; 
+  document.getElementById('bankName').value = '';
   loadBanks()
   modalCreateBank.hide()
 }
@@ -234,6 +262,11 @@ function showCreateUser() {
 
 function showCreateBank() {
   modalCreateBankShow()
+}
+
+function closeWindow(e){
+  e.preventDefault()
+  ipcRenderer.send('close-window-create-account')
 }
 
 

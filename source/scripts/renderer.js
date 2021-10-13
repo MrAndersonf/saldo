@@ -28,10 +28,9 @@ function showCreateAccount(e) {
     ipcRenderer.send('open-account-create')
 }
 
-ipcRenderer.on('notify', (event, data) => {
+ipcRenderer.on('notify', (event,data) => {
     try {
-        let notification = new Notification("Test Title", { body: "Test Body" });
-
+        let notification = new Notification(data.title, { body: data.body,icon:"../assets/logo.png" });
         notification.show();
     } catch (error) {
         console.log(error)

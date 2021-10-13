@@ -3,7 +3,6 @@ const userHandle = require('../database/index')
 class Statement {
     static async create(data) {
         try {
-            
             userHandle.createStatement(data)
         } catch (error) {
             console.log(error)

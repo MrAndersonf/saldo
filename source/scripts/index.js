@@ -2,7 +2,7 @@ const path = require('path');
 const User = require(path.resolve(__dirname, '../models/User.js'))
 const Bank = require(path.resolve(__dirname, '../models/Bank.js'))
 const Account = require(path.resolve(__dirname, '../models/Account.js'))
-const Currency = require(path.resolve(__dirname, '../util/Currency.js'))
+
   ; (async () => {
     console.log(await User.list())
   })()
@@ -25,28 +25,7 @@ function menuhandle(id) {
   }
 }
 
-function handleBalance(e, amount) {
-  e.preventDefault()
-  let input = document.getElementById('accountBalance')
-  if (e.keyCode >= 96 && e.keyCode <= 105 || e.keyCode >= 48 && e.keyCode <= 57) {
-    let sanitized = Currency.sanitizeCurrency(amount)
-    let parsetToNum = sanitized + e.key
-    let readyNumber = parsetToNum / 100
-    input.value = ''
-    input.value = Currency.formater(readyNumber)
-  }
-  if (e.keyCode == 8) {
-    let sanitized = Currency.sanitizeCurrency(amount)
-    let removedIndex = sanitized.slice(0, -1)
-    let readyNumber = removedIndex / 100
-    input.value = ''
-    input.value = Currency.formater(readyNumber)
 
-  }
-  if (e.keyCode == 9) {
-    document.getElementById('balanceDate').focus()
-  }
-}
 
 function toggleMenu() {
   let toggle = document.querySelector(".toggle");

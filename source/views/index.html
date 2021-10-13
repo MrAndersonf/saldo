@@ -42,40 +42,28 @@
             <span class="title">Home</span>
           </a>
         </li>
-        <li class="active" onclick="event.preventDefault();showCreateAccountModal()">
+        <li onclick="showCreateAccount(event)">
           <a href="">
             <span class="icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
-            <span class="title">Cadastrar</span>
+            <span class="title">Cadastrar Conta</span>
           </a>
         </li>
-        <li class="active" onclick="event.preventDefault();importBankStatement()">
+        <li  onclick="event.preventDefault();importBankStatement()">
           <a href="">
             <span class="icon"><i class="fa fa-folder-open" aria-hidden="true"></i></span>
-            <span class="title">Importar</span>
+            <span class="title">Importar Extrato</span>
           </a>
         </li>
         <li>
           <a href="">
             <span class="icon"><i class="fa fa-file-text" aria-hidden="true"></i></span>
-            <span class="title">Relatórios</span>
+            <span class="title">Cadastrar Movimentação</span>
           </a>
         </li>
-        <li>
-          <a id="list-products" href="" onclick="menuhandle(this.id)">
-            <span class="icon"><i class="fa fa-id-badge" aria-hidden="true"></i></span>
-            <span class="title">Contas</span>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
-            <span class="title">Settings</span>
-          </a>
-        </li>
-        <li>
+        <li onclick="systemSignOut(event)">
           <a href="">
             <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-            <span class="title">Sign Out</span>
+            <span class="title">Sair</span>
           </a>
         </li>
       </ul>
@@ -134,8 +122,8 @@
       <div class="details">
         <div class="recentOrders">
           <div class="cardHeader">
-            <h2>Recent Orders</h2>
-            <a class="btns" href="#">View All</a>
+            <h2>Resumo</h2>
+            <a class="btns" href="#">Ver Todos</a>
           </div>
           <table>
             <thead>
@@ -177,7 +165,7 @@
         <div class="recentCustomers">
           <div class="cardHeader">
             <h2>Contas</h2>
-            <a href="#">View All</a>
+            <a class="btns" href="#" onclick="loadAccountsTableInactive()">Inativas</a>
           </div>
           <table>
             <tbody id="accountsTable">
@@ -302,155 +290,15 @@
     </div>
   </div>
 
-  <div class="modal fade" id="createAccount" tabindex="-1" aria-labelledby="createAccountLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createAccountLabel">Criar Conta</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-2">
-            <div class="col-md-12">
-              <div class="form-floating">
-                <select class="form-select" id="accountOwner" onchange="handleChange(this.value)">
-                  <option selected value="">Selecione</option>
-                  <option value="createUser">Criar Usuário</option>
-                </select>
-                <label for="accountOwner">Proprietário</label>
-                <div id="error-message-owner" class="invalid-feedback">
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="form-floating">
-                <select class="form-select" id="accountBank" onchange="handleChange(this.value)">
-                  <option selected value="">Selecione</option>
-                  <option value="createBank">Criar Banco</option>
-                </select>
-                <label for="accountBank">Banco</label>
-                <div id="error-message-bank" class="invalid-feedback">
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="accountAgency" placeholder="Agência">
-                <label for="accountAgency">Agência</label>
-                <div id="error-message-agency" class="invalid-feedback">
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="accountNumber" placeholder="Conta">
-                <label for="accountNumber">Conta</label>
-                <div id="error-message-account" class="invalid-feedback">
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="accountDigit" placeholder="Dígito">
-                <label for="accountDigit">Dígito</label>
-                <div id="error-message-digit" class="invalid-feedback">
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="accountBalance" placeholder="Saldo Inicial"
-                  onkeydown="handleBalance(event,this.value)">
-                <label for="accountBalance">Saldo Inicial</label>
-                <div id="error-message-balance" class="invalid-feedback">
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-floating">
-                <input type="date" class="form-control" id="balanceDate" placeholder="Data do Saldo">
-                <label for="balanceDate">Data do Saldo</label>
-                <div id="error-message-date" class="invalid-feedback">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success" onclick="event.preventDefault();insertAccount()">Criar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+ 
 
-  <div class="modal fade" id="createUser" tabindex="-1" aria-labelledby="createAccountLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createAccountLabel">Criar Usuário</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-2">
-            <div class="col-md-12">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="userName" placeholder="Nome do Usuário">
-                <label for="userName">Nome do Usuário</label>
-                <div id="error-message" class="invalid-feedback">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" onclick="event.preventDefault();insertUser()">Criar</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="modal fade" id="createBankModal" tabindex="-1" aria-labelledby="createAccountLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createAccountLabel">Criar Banco</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-2">
-            <div class="col-md-12">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="bankCode" placeholder="Nome do Usuário">
-                <label for="bankCode">Código do Banco</label>
-                <div id="error-bank-code" class="invalid-feedback">
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="bankName" placeholder="Nome do Usuário">
-                <label for="bankName">Nome do Banco</label>
-                <div id="error-bank-name" class="invalid-feedback">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" onclick="event.preventDefault();insertBank()">Criar</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="modal fade" id="manageAccount" tabindex="-1" aria-labelledby="createAccountLabel" aria-hidden="true">
+  <div class="modal fade" id="manageAccount" tabindex="-1" aria-labelledby="manageAccountLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="createAccountLabel">Gerênciar Conta</h5>
+          <h5 class="modal-title" id="manageAccountLabel">Gerênciar Conta</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -548,6 +396,29 @@
       </div>
       <div id="notification" class="toast-body">
 
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-dialog modal-dialog-centered" id="sign_out_modal" tabindex="-1" aria-labelledby="sign_out_modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style=" background: linear-gradient(180deg, #003147, rgb(6, 6, 190));
+      transition: 0.5s;">
+        <div class="modal-body" style="color: #fff; font-weight: 500; font-size: 20px;">
+          <p>Deseja realmente fechar o sistema?.</p>
+        </div>
+        <div class="modal-footer">
+          <div class="col-md-12">
+            <div class="form-floating">
+              <button class="btn btn-warning w-100" onclick="cancelSignOut(event)">Não</button>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-floating">
+              <button class="btn btn-danger w-100" onclick="confirmSignOut(event)">Sim</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

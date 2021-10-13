@@ -62,27 +62,48 @@ module.exports = {
     find_account_number(number) {
         let directory = this.accounts();
         let found;
-        directory.forEach(account =>{
-            if(account.number == number){
+        directory.forEach(account => {
+            if (account.number == number) {
                 found = account;
             }
-        } ) 
+        })
         return found
     },
 
-    account_status(number){
-        
-        let account = this.find_account_number(number) 
+    account_status_active() {
+        let directory = this.accounts();
+        let actives = []
+        directory.forEach(account => {
+            if (account.status == 'active') {
+                actives.push(account);
+            }
+        })
+        return actives
+    },
+
+    account_status_inactive() {
+        let directory = this.accounts();
+        let inactives = []
+        directory.forEach(account => {
+            if (account.status == 'inactive') {
+                inactives.push(account);
+            }
+        })
+        return inactives
+    },
+
+    account_status(number) {
+        let account = this.find_account_number(number)
         console.log(account)
-        if(account.status == 'active'){
+        if (account.status == 'active') {
             account.status = 'inactive'
-        }else{
+        } else {
             account.status = 'active'
         }
         this.createAccount(account.id, account)
     },
 
-    
+
 
     get_files(pathfile) {
         return fs.readdirSync(path.resolve(`./source/database/${pathfile}`))
@@ -121,8 +142,57 @@ module.exports = {
         });
         return number + 1
     },
+    setThisYear(passedYear) {
+        let year = passedYear
+        let directory = fs.readdirSync(path.resolve(`./source/database/statements`))
+        if (!directory.includes(year)) {
+            fs.mkdirSync(path.resolve(`./source/database/statements/${year}`))
+        }
+    },
+    setThisMonth(passedMonth, passedYear) {
+        let month = passedMonth
+        let year = passedYear
+        let directory = fs.readdirSync(path.resolve(`./source/database/statements/${year}`))
+        if (!directory.includes(month)) {
+            fs.mkdirSync(path.resolve(`./source/database/statements/${year}/${month}`))
+        }
+    },
+    setSelectedAccount(current) {
+        let accounts = this.accounts()
+        let selected = ""
+        accounts.forEach(account => {
+            if (current.includes(account.number)) {
+                selected = account;
+            }
+        })
+        let banks = this.banks()
+        banks.forEach(bank => {
+            if (selected.bank == bank.name) {
+                selected.bank = bank;
+            }
+        })
+        return selected
+    },
+    createStatement(data) {
+        console.log(data)
+        this.setThisYear(data.statement.year)
+        this.setThisMonth(data.statement.month, data.statement.year)
+        let filepath = path.resolve(`./source/database/statements/${data.statement.year}/${data.statement.month}.json`)
+        jsf.writeFileSync(filepath, {
+            accounts: [
+                {
+                    account: data.account.number,
+                    statement: data.statement
+                }
+            ]
+        })
+        let account = this.find_account(data.account.id)
+        account.balance = data.balance
+        this.createAccount(data.account.id, account)
+    },
 
-   
+
+
 
 
 }

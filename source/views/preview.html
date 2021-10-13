@@ -15,49 +15,74 @@
 </head>
 
 <body>
-  <view style="display: flex; height:20vh; width:100%;flex-direction: column;justify-content: center;align-items: center; background-color: #f7f7f7;">
-    <view style="display:flex; flex-direction: row;width:50%; justify-content:space-between;">
-      <view style="display:flex;flex-direction: column; align-items: center;margin-top:20px; ">
-        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Código do Banco</label>
-        <span id="bankId"></span>
+  <view
+    style="display: flex; height:20vh; width:100%;flex-direction: column;justify-content: center;align-items: center; background-color: #f7f7f7;">
+    <view style="display:flex; flex-direction: row;width:100%; justify-content:space-evenly;">
+      <view style="display:flex;flex-direction: column; align-items: center;margin-top:3px; ">
+        <label
+          style="font-size:22px ;color:#fff;width:200px;background:linear-gradient(45deg, #003147, rgb(6, 6, 190));border-radius: 10px; padding:0 8px">Código
+          do Banco</label>
+        <span id="bankId" style="font-size:20px; font-weight: 400;"></span>
       </view>
-      <view style="display:flex;flex-direction: column;align-items: center;margin-top:20px">
-        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Nome do Banco</label>
-        <span id="bankName"></span>
+      <view style="display:flex;flex-direction: column;align-items: center;margin-top:3px">
+        <label
+          style="font-size:22px ;color:#fff;width:200px;background:linear-gradient(45deg, #003147, rgb(6, 6, 190));border-radius: 10px; padding:0 8px">Nome
+          do Banco</label>
+        <span id="bankName" style="font-size:20px; font-weight: 400;"></span>
       </view>
-      <view style="display:flex;flex-direction: column; align-items: center;margin-top:20px">
-        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Agência</label>
-        <span id="accountAg"></span>
+      <view style="display:flex;flex-direction: column; align-items: center;margin-top:3px">
+        <label
+          style="font-size:22px ;color:#fff;width:200px;background:linear-gradient(45deg, #003147, rgb(6, 6, 190));border-radius: 10px; padding:0 8px">Agência</label>
+        <span id="accountAg" style="font-size:20px; font-weight: 400;"></span>
       </view>
-      <view style="display:flex;flex-direction: column; align-items: center;margin-top:20px">
-        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Conta</label>
-        <span id="accountNumber"></span>
+      <view style="display:flex;flex-direction: column; align-items: center;margin-top:3px">
+        <label
+          style="font-size:22px ;color:#fff;width:200px;background:linear-gradient(45deg, #003147, rgb(6, 6, 190));border-radius: 10px; padding:0 8px">Conta</label>
+        <span id="accountNumber" style="font-size:20px; font-weight: 400;"></span>
       </view>
+
     </view>
-    <view style="display:flex; flex-direction: row;width:18%; justify-content:space-between;margin-top: 15px;">
-      <view style="display:flex;flex-direction: column; align-items: center;">
-        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Início</label>
-        <span id="start"></span>
+    <view style="display:flex; flex-direction: row;width:100%; justify-content:space-evenly;">
+      <view style="display:flex;flex-direction: column; align-items: center;margin-top:3px">
+        <label
+          style="font-size:22px ;color:#fff;width:200px;background:linear-gradient(45deg, #003147, rgb(6, 6, 190));border-radius: 10px; padding:0 8px">Proprietário</label>
+        <span id="owner" style="font-size:20px; font-weight: 400;"></span>
       </view>
-      <view style="display:flex;flex-direction: column;align-items: center;">
-        <label style="background-color:#fff;border-radius: 10px; padding:0 8px">Fim</label>
-        <span id="end"></span>
-      </view>     
+      <view style="display:flex;flex-direction: column; align-items: center;margin-top:3px">
+        <label
+          style="font-size:22px ;color:#fff;width:200px;background:linear-gradient(45deg, #003147, rgb(6, 6, 190));border-radius: 10px; padding:0 8px">Começo</label>
+        <span id="start" style="font-size:20px; font-weight: 400;"></span>
+      </view>
+      <view style="display:flex;flex-direction: column; align-items: center;margin-top:3px">
+        <label
+          style="font-size:22px ;color:#fff;width:200px;background:linear-gradient(45deg, #003147, rgb(6, 6, 190));border-radius: 10px; padding:0 8px">Fim</label>
+        <span id="end" style="font-size:20px; font-weight: 400;"></span>
+      </view>
+      <view style="display:flex;flex-direction: column; align-items: center;margin-top:3px">
+        <label
+          style="font-size:22px ;color:#fff;width:200px;background:linear-gradient(45deg, #003147, rgb(6, 6, 190));border-radius: 10px; padding:0 8px">Status</label>
+        <span id="status" style="font-size:20px; font-weight: 400;"></span>
+      </view>
     </view>
   </view>
-  <div class="table-responsive">
-    <table id="tableScale" class="table table-hover table-striped header-fixed ">
-      <thead class="thead table-dark">
-        <tr>
-          <th class="date">Data</th>
-          <th class="docId">Documento</th>
-          <th class="historic">Histórico</th>
-          <th class="debitLabel">Débito</th>
-          <th class="creditLabel">Crédito</th>
-        </tr>
-      </thead>
-      <tbody id="ofx-table"></tbody>
-    </table>
+
+  <table id="tableScale" class="table table-hover table-striped header-fixed ">
+    <thead class="thead" style="background:linear-gradient(45deg, #003147, rgb(6, 6, 190)); color:#fff">
+      <tr>
+        <th class="date">Data</th>
+        <th class="docId">Documento</th>
+        <th class="historic">Histórico</th>
+        <th class="debitLabel">Débito</th>
+        <th class="creditLabel">Crédito</th>
+      </tr>
+    </thead>
+    <tbody id="ofx-table"></tbody>
+  </table>
+
+  <div
+    style="display:flex; width:100%; height:5vh; margin-top:0px; background-color:blueviolet;justify-content: flex-start;">
+    <button class="btn btn-danger w-50">Cancelar Importação</button>
+    <button class="btn btn-success w-50" onclick="incorporate(event)">Incorporar Extrato Bancário</button>
   </div>
 
 
@@ -76,6 +101,30 @@
     </div>
   </div>
 
+  <div class="modal fade" id="accountSelectionModal" tabindex="-1" aria-labelledby="createAccountLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createAccountLabel">Selecionar Conta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="col-md-12">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="accountStatement" placeholder="Proprietário">
+                <label for="accountStatement">Associar Extrato com a conta</label>
+                <div id="error-message-owner" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
 
@@ -85,57 +134,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
     </script>
-  <script src="../scripts/preview.js"></script>
   <script src="../scripts/renderer.js"></script>
-  <script>
-    const querystring = require('querystring');
-    let query = querystring.parse(global.location.search);
-    let data = JSON.parse(query['?data'])
-    console.log(data)
-    document.getElementById('bankId').textContent = data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKACCTFROM.BANKID
-    let accountData = data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKACCTFROM.ACCTID.split('00000')
-    console.log(accountData)
-    document.getElementById('bankName').textContent = data.OFX.SIGNONMSGSRSV1.SONRS.FI.ORG.split(',')[0]
-    document.getElementById('accountAg').textContent = accountData[0]
-    document.getElementById('accountNumber').textContent = accountData[1]
-    document.getElementById('start').textContent = parseDate(data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.DTSTART)
-    document.getElementById('end').textContent = parseDate(data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.DTEND)
+  <script src="../scripts/preview.js"></script>
 
-    let dataBank = data.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS
-    showShippingCompanies(dataBank)
-
-
-    function showShippingCompanies(data) {
-      let debits = 0
-      let credits = 0
-      
-      let tableBody = document.getElementById("ofx-table");
-      tableBody.innerHTML = "";
-      data.BANKTRANLIST.STMTTRN.forEach((el) => {
-        el.TRNTYPE != 'CREDIT'? debits+=Number(el.TRNAMT):credits+=Number(el.TRNAMT)
-        let row = `<tr>
-          <td class="date">${parseDate(el.DTPOSTED)}</th>
-          <td class="docId">${el.FITID.split(" ")[0].length < 6 ? '-' : el.FITID.split(" ")[0]}</td>
-          <td class="historic">${el.MEMO} - ${el.REFNUM != undefined ? el.REFNUM.substring(el.REFNUM.indexOf(' '), el.REFNUM.length - 1) : ""}</td>
-          <td class="debit">${el.TRNTYPE != 'CREDIT' ? Number(el.TRNAMT).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : "-"}</td>
-          <td class="credit">${el.TRNTYPE === 'CREDIT' ? Number(el.TRNAMT).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : "-"}</td>
-          </tr>`;
-        let newRow = tableBody.insertRow(tableBody.rows.length);
-        newRow.innerHTML = row;
-        
-      });
-
-      console.log(`Débitos = ${debits.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}   -   Créditos = ${credits.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}  -  Saldo = ${(debits+credits).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}`)
-    }
-
-    function parseDate(date) {
-      let rawDate = date.slice(0, 8);
-      let day = rawDate.substring(6, 8)
-      let month = rawDate.substring(4, 6)
-      let year = rawDate.substring(0, 4)
-      return `${day}/${month}/${year}`
-    }
-  </script>
 </body>
 
 </html>

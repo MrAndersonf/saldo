@@ -1,3 +1,10 @@
+*{
+  padding:0;
+  margin:0;
+  box-sizing:border-box
+}
+
+
 .buttonAdd {
     display: flex;
     justify-content: center;
@@ -77,7 +84,7 @@
 
   .header-fixed>tbody {
     overflow-y: auto;
-    height: 70vh;
+    height: 65vh;
   }
 
   .header-fixed>tbody>tr>td,

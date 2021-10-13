@@ -1,10 +1,10 @@
 const userHandle = require('../database/index')
 
-class Bank {
+class Statement {
     static async create(data) {
         try {
-            let nextId = userHandle.next('banks')
-            userHandle.createBank(nextId, { id: nextId, ...data })
+            
+            userHandle.createStatement(data)
         } catch (error) {
             console.log(error)
         }
@@ -20,4 +20,4 @@ class Bank {
 
 }
 
-module.exports = Bank
+module.exports = Statement

@@ -1,10 +1,15 @@
 const path = require('path');
-const { list } = require('../models/User');
 const User = require(path.resolve(__dirname, '../models/User.js'))
 const Bank = require(path.resolve(__dirname, '../models/Bank.js'))
 const Account = require(path.resolve(__dirname, '../models/Account.js'))
 const Currency = require(path.resolve(__dirname, '../util/Currency.js'))
-loadAccountsTable()
+  ; (async () => {
+    console.log(await User.list())
+  })()
+
+window.addEventListener('load', function () {
+  loadAccountsTableActive()
+})
 
 function menuhandle(id) {
   this.event.preventDefault()
@@ -58,7 +63,7 @@ async function insertUser() {
     userName.classList.remove('is-invalid');
     await User.create({ name: userName.value })
     notify(`Usuário ${userName.value} criado.`)
-    modalUser.hide()
+    modalCreateUserHide()
   } else {
     userName.classList.add('is-invalid');
     document.getElementById('error-message').innerText = "O nome deve conter no mínimo 3 caracteres."
@@ -120,7 +125,7 @@ function insertAccount() {
     })
     notify("Conta criada com sucesso.")
     modalAccount.hide()
-    loadAccountsTable()
+    loadAccountsTableActive()
   }
 }
 
@@ -143,7 +148,7 @@ async function insertBank() {
   } else {
     await Bank.create({ code: code.value, name: name.value })
     notify(`Banco ${name.value} criado. `)
-    modalBank.hide()
+    modalCreateBankHide()
   }
 }
 
@@ -164,6 +169,7 @@ function validate(fields) {
 }
 
 function handleChange(input) {
+  console.log(input)
   switch (input) {
     case 'createUser':
       showCreateUser();
@@ -175,24 +181,33 @@ function handleChange(input) {
 }
 
 async function loadUsers() {
-  let list = await User.list()
-  let select = document.getElementById('accountOwner')
-  select.innerHTML = ''
-  var option = document.createElement("option");
-  option.value = "";
-  option.text = "Selecione";
-  select.appendChild(option)
-  list.forEach(user => {
+  try {
+    let list = await User.list()
+    console.log(list)
+    if (list.length <= 0) {
+      return
+    }
+    let select = document.getElementById('accountOwner')
+    select.innerHTML = ''
     var option = document.createElement("option");
-    option.value = user.name;
-    option.text = user.name;
+    option.value = "";
+    option.text = "Selecione";
     select.appendChild(option)
-  })
-  var option = document.createElement("option");
-  option.value = "createUser";
-  option.text = "Cadastrar Usuário";
-  option.style = "color:white; background-color: green"
-  select.appendChild(option)
+    list.forEach(user => {
+      var option = document.createElement("option");
+      option.value = user.name;
+      option.text = user.name;
+      select.appendChild(option)
+    })
+    var option = document.createElement("option");
+    option.value = "createUser";
+    option.text = "Cadastrar Usuário";
+    option.style = "color:white; background-color: green"
+    select.appendChild(option)
+  } catch (error) {
+    console.log(error)
+  }
+
 }
 
 async function loadBanks() {
@@ -216,13 +231,11 @@ async function loadBanks() {
   select.appendChild(option)
 }
 
-async function loadAccountsTable() {
-  let list = await Account.list()
-  console.log(list)
+async function loadAccountsTableActive() {
+  let list = await Account.actives();
   let table = document.getElementById('accountsTable')
   table.innerHTML = ""
   list.forEach(account => {
-    console.log(JSON.stringify(account))
     let tr = `<tr>
       <td class="imgTd">
         <div class="imgBx">
@@ -232,8 +245,9 @@ async function loadAccountsTable() {
       <td>
         <h4 class="userAc">
           ${account.owner}<br>
-          <span>${account.bank}</span>
-          <span>${account.agency} - ${account.number}</span>
+          <span>${account.bank} </span>
+          <span>${account.agency} - ${account.number} - ${account.status === "active" ? "Ativa" : "Inativa"}</span>
+          
         </h4>
       </td>
       <td class="btnUserAc">
@@ -242,13 +256,50 @@ async function loadAccountsTable() {
         </button>
       </td>
     </tr>`
-    var newRow = table.insertRow(table.rows.length);    
+    var newRow = table.insertRow(table.rows.length);
     newRow.innerHTML = tr;
 
   })
 }
 
-async function modalHandleAccount(number){
+async function loadAccountsTableInactive() {
+  let list = await Account.inactives()
+  if (list.length <= 0) {
+    notify("Não há contas inativas.")
+    return
+  }
+  let table = document.getElementById('accountsTable')
+  table.innerHTML = ""
+  list.forEach(account => {
+
+    let tr = `<tr>
+      <td class="imgTd">
+        <div class="imgBx">
+          <img src="../assets/userr.jpg" alt="" />
+         </div>
+      </td>
+      <td>
+        <h4 class="userAc">
+          ${account.owner}<br>
+          <span>${account.bank} </span>
+          <span>${account.agency} - ${account.number} - ${account.status === "active" ? "Ativa" : "Inativa"}</span>
+          
+        </h4>
+      </td>
+      <td class="btnUserAc">
+        <button class="iconBtn" onclick="modalHandleAccount('${account.number}')">
+          <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>`
+    var newRow = table.insertRow(table.rows.length);
+    newRow.innerHTML = tr;
+
+  })
+}
+
+
+async function modalHandleAccount(number) {
   let account = await Account.find(number)
   document.getElementById('accountEditOwner').value = account.owner;
   document.getElementById('accountEditBank').value = account.bank;
@@ -258,23 +309,25 @@ async function modalHandleAccount(number){
   document.getElementById('accountEditBalance').value = account.balance;
   document.getElementById('balanceEditDate').value = account.date;
   let btn = document.getElementById('accountStatusBtn')
-  if(account.status == 'active'){
+  if (account.status == 'active') {
     btn.classList.remove('btn-success')
     btn.classList.add('btn-warning')
     btn.innerText = "Inativar"
-  }else{
+  } else {
     btn.classList.remove('btn-warning')
     btn.classList.add('btn-success')
     btn.innerText = "Reativar"
   }
-  modalManageAccount.show()
+  modalManageAccountShow()
 }
 
-function handleAccountStatus(e){
+async function handleAccountStatus(e) {
   e.preventDefault()
   let account = document.getElementById('accountEditNumber')
   console.log(account.value)
-  Account.status(account.value)
+  await Account.status(account.value)
+  modalManageAccountHide()
+  loadAccountsTableActive()
 }
 
 function notify(message) {
@@ -289,15 +342,15 @@ function notify(message) {
 
 
 
-var modalAccount = new bootstrap.Modal(document.getElementById('createAccount'))
-var modalUser = new bootstrap.Modal(document.getElementById('createUser'))
-var modalBank = new bootstrap.Modal(document.getElementById('createBankModal'))
-var modalManageAccount = new bootstrap.Modal(document.getElementById('manageAccount'))
 
 
 
-var hiddenModalAccount = document.getElementById('createAccount')
-hiddenModalAccount.addEventListener('hidden.bs.modal', () => {
+function modalCreateAccountShow() {
+  var modal = new bootstrap.Modal(document.getElementById('createAccount'))
+  modal.show()
+}
+
+function modalCreateAccountHide() {
   document.getElementById('accountOwner').selectedIndex = "0";
   document.getElementById('accountBank').selectedIndex = "0";
   document.getElementById('accountAgency').value = '';
@@ -305,43 +358,78 @@ hiddenModalAccount.addEventListener('hidden.bs.modal', () => {
   document.getElementById('accountDigit').value = '';
   document.getElementById('accountBalance').value = '';
   document.getElementById('balanceDate').value = '';
+  var modal = new bootstrap.Modal(document.getElementById('createAccount'))
+  modal.hide()
+}
 
-})
+function modalCreateUserShow() {
+  var modal = new bootstrap.Modal(document.getElementById('createUser'))
+  modal.show();
+}
 
-hiddenModalAccount.addEventListener('shown.bs.modal', () => {
-  loadUsers()
-  loadBanks()
-})
-
-
-
-var hiddenModalUser = document.getElementById('createUser')
-hiddenModalUser.addEventListener('hidden.bs.modal', () => {
+function modalCreateUserHide() {
   document.getElementById('userName').value = '';
-  modalAccount.show()
-})
+  var modal = new bootstrap.Modal(document.getElementById('createUser'))
+  modal.hide();
+  modalCreateAccountShow()
+}
 
+function modalCreateBankShow() {
+  var modal = new bootstrap.Modal(document.getElementById('createBankModal'));
+  modal.show()
+}
 
-var hiddenModalBank = document.getElementById('createBankModal')
-hiddenModalBank.addEventListener('hidden.bs.modal', () => {
+function modalCreateBankHide() {
   document.getElementById('bankCode').value = '';
   document.getElementById('bankName').value = '';
-  modalAccount.show();
-})
+  var modal = new bootstrap.Modal(document.getElementById('createBankModal'));
+  modal.hide()
+  modalCreateAccountShow()
+}
 
+function modalManageAccountShow() {
+  var modal = new bootstrap.Modal(document.getElementById('manageAccount'))
+  modal.show()
+}
+
+function modalManageAccountHide() {
+  var modal = new bootstrap.Modal(document.getElementById('manageAccount'))
+  modal.hide()
+}
+
+function modalSignOutShow() {
+  var modal = new bootstrap.Modal(document.getElementById('sign_out_modal'))
+  modal.show()
+}
+
+function modalSignOutHide() {
+  var modal = new bootstrap.Modal(document.getElementById('sign_out_modal'))
+  modal.hide()
+}
 
 function showCreateAccountModal() {
-  modalAccount.show();
+  modalCreateAccountShow()
+  loadUsers()
+  loadBanks()
 }
 
 
 function showCreateUser() {
-  modalAccount.hide()
-  modalUser.show();
+  modalCreateAccountHide()
+  modalCreateUserShow()
 }
 
 function showCreateBank() {
-  modalAccount.hide()
-  modalBank.show();
+  modalCreateAccountHide()
+  modalCreateBankShow()
+}
+
+function cancelSignOut() {
+  modalSignOutHide();
+}
+
+function systemSignOut(e) {
+  e.preventDefault();
+  modalSignOutShow()
 }
 

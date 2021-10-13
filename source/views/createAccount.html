@@ -98,7 +98,7 @@
                 <div class="col-sm-6">
                     <div class="form-floating">
                         <button id="accountStatusBtn" class="btn btn-danger w-100"
-                            onclick="closeWindow(event)">Cancelar</button>
+                            onclick="handleBack(event)">Cancelar</button>
                         <div id="error-message-date" class="invalid-feedback">
                         </div>
                     </div>
@@ -268,7 +268,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <button class="btn btn-primary w-100">Sair</button>
+                                <button class="btn btn-primary w-100">Voltar</button>
                                 <div id="error-message-date" class="invalid-feedback">
                                 </div>
                             </div>
@@ -279,35 +279,26 @@
         </div>
     </div>
 
- 
 
-    <div class="modal fade modal-dialog modal-dialog-centered" id="sign_out_modal" tabindex="-1"
-        aria-labelledby="sign_out_modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" style=" background: linear-gradient(180deg, #003147, rgb(6, 6, 190));
-      transition: 0.5s;">
-                <div class="modal-body" style="color: #fff; font-weight: 500; font-size: 20px;">
-                    <p>Deseja realmente fechar o sistema?.</p>
-                </div>
-                <div class="modal-footer">
-                    <div class="col-md-12">
-                        <div class="form-floating">
-                            <button class="btn btn-warning w-100" onclick="cancelSignOut(event)">Não</button>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-floating">
-                            <button class="btn btn-danger w-100" onclick="confirmSignOut(event)">Sim</button>
-                        </div>
-                    </div>
-                </div>
+
+    
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="../assets/logo.png" class="rounded me-2" style="width:32px;height: 32px;" alt="...">
+                <strong class="me-auto">Opção</strong>
+                <small id="date-time"></small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div id="notification" class="toast-body">
+
             </div>
         </div>
     </div>
 
     <script src="../scripts/renderer.js"></script>
     <script src="../scripts/createAccount.js"></script>
-    
+
 </body>
 
 </html>

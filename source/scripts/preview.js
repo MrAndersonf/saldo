@@ -1,5 +1,4 @@
-const path = require('path')
-const electron = require('electron')
+
 const Statement = require(path.resolve(__dirname, '../models/Statement.js'))
 const Account = require(path.resolve(__dirname, '../models/Account.js'))
 
@@ -117,7 +116,7 @@ async function incorporate(e) {
             account: accountInfo
         }
     )
-    electron.ipcRenderer.send('close-ofx',{ title: "Sucesso", body: "Extrato .OFX importado." })
+    
     
    
 }

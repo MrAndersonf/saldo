@@ -132,7 +132,6 @@ module.exports = {
         let directory = fs.readdirSync(path.resolve(`./source/database/${file}`))
         let ids = directory.map(file => Number(file.substr(0, file.lastIndexOf('.'))));
         let orderedIds = ids.sort(function (a, b) { return a - b })
-        console.log(orderedIds)
         if (orderedIds.length == 0) return 1
         let number = 0
         let aux = 0
@@ -174,21 +173,14 @@ module.exports = {
         return selected
     },
     createStatement(data) {
-        console.log(data)
         this.setThisYear(data.statement.year)
         this.setThisMonth(data.statement.month, data.statement.year)
-        let filepath = path.resolve(`./source/database/statements/${data.statement.year}/${data.statement.month}.json`)
-        jsf.writeFileSync(filepath, {
-            accounts: [
-                {
-                    account: data.account.number,
-                    statement: data.statement
-                }
-            ]
-        })
+        let filepath = path.resolve(`./source/database/statements/${data.statement.year}/${data.statement.month}/${data.account.number}.json`)
+        jsf.writeFileSync(filepath,data.statement)         
         let account = this.find_account(data.account.id)
         account.balance = data.balance
         this.createAccount(data.account.id, account)
+        ipcRenderer.send('close-ofx',{title:"Sucesso",body:"Extrato .OFX importado."})
     },
 
 

@@ -1,10 +1,10 @@
 
 
-const path = require('path');
 const User = require(path.resolve(__dirname, '../models/User.js'))
 const Bank = require(path.resolve(__dirname, '../models/Bank.js'))
 const Account = require(path.resolve(__dirname, '../models/Account.js'))
 const Currency = require(path.resolve(__dirname, '../util/Currency.js'))
+
 
 window.addEventListener('load', function () {
   loadUsers()
@@ -66,7 +66,7 @@ async function insertAccount(e) {
   ]
   let result = validate(fields)
   if (!result) {
-    ipcRenderer.send('new-user-created',{ title: "Aviso", body: "Preencha todos os campos." })
+    ipcRenderer.send('new-user-created', { title: "Aviso", body: "Preencha todos os campos." })
     return
   } else {
     await Account.create({
@@ -80,10 +80,18 @@ async function insertAccount(e) {
         amount: balance.value,
       },
       status: "active"
-    })   
+    })
+    notify("Conta Criada com Sucesso")
   }
-  ipcRenderer.send('new-user-created',{ title: "Sucesso", body: "Conta criada com sucesso" })
-  modalCreateAccountHide()
+
+
+
+}
+
+
+function handleBack(event){
+  event.preventDefault()
+  ipcRenderer.send("main-screen")
 }
 
 function handleBalance(e, amount) {
@@ -128,7 +136,7 @@ async function insertBank() {
     notify(`Revise o formulário.`)
   } else {
     await Bank.create({ code: code.value, name: name.value })
-    ipcRenderer.send('new-user-created', {title:"Sucesso",body:"Banco criado com sucesso"})
+    ipcRenderer.send('new-user-created', { title: "Sucesso", body: "Banco criado com sucesso" })
     modalCreateBankHide()
   }
 }
@@ -264,9 +272,17 @@ function showCreateBank() {
   modalCreateBankShow()
 }
 
-function closeWindow(e){
-  e.preventDefault()
-  ipcRenderer.send('close-window-create-account')
+
+
+function notify(message) {
+  let date = new Date()
+  let options = { animation: true, autohide: true, delay: 5000 }
+  var toast = document.getElementById('liveToast')
+  var notificate = new bootstrap.Toast(toast, options)
+  document.getElementById('date-time').innerText = date.toLocaleDateString('pt-BR') + " - " + date.toLocaleTimeString('pt-BR')
+  document.getElementById('notification').innerText = message
+  notificate.show()
 }
+
 
 

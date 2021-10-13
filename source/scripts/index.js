@@ -1,11 +1,6 @@
-const path = require('path');
 const User = require(path.resolve(__dirname, '../models/User.js'))
 const Bank = require(path.resolve(__dirname, '../models/Bank.js'))
 const Account = require(path.resolve(__dirname, '../models/Account.js'))
-
-  ; (async () => {
-    console.log(await User.list())
-  })()
 
 window.addEventListener('load', function () {
   loadAccountsTableActive()
@@ -48,6 +43,8 @@ async function insertUser() {
     document.getElementById('error-message').innerText = "O nome deve conter no mínimo 3 caracteres."
   }
 }
+
+
 
 function insertAccount() {
   let owner = document.getElementById('accountOwner')
@@ -320,6 +317,7 @@ function notify(message) {
 }
 
 
+var modalSignOut = new bootstrap.Modal(document.getElementById('sign_out_modal'))
 
 
 
@@ -382,8 +380,7 @@ function modalSignOutShow() {
 }
 
 function modalSignOutHide() {
-  var modal = new bootstrap.Modal(document.getElementById('sign_out_modal'))
-  modal.hide()
+
 }
 
 function showCreateAccountModal() {
@@ -404,11 +401,11 @@ function showCreateBank() {
 }
 
 function cancelSignOut() {
-  modalSignOutHide();
+  modalSignOut.hide()
 }
 
 function systemSignOut(e) {
   e.preventDefault();
-  modalSignOutShow()
+  modalSignOut.show()
 }
 

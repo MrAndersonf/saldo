@@ -1,7 +1,12 @@
+const path = require('path');
 const { ipcRenderer } = require('electron')
 const fs = require('fs')
 const ofx = require('node-ofx-parser');
 
+
+
+let table = document.getElementById('accountsTable')
+console.log(table)
 
 
 function importBankStatement() {
@@ -28,16 +33,13 @@ function showCreateAccount(e) {
     ipcRenderer.send('open-account-create')
 }
 
-ipcRenderer.on('notify', (event,data) => {
-    try {
-        let notification = new Notification(data.title, { body: data.body,icon:"../assets/logo.png" });
-        notification.show();
-    } catch (error) {
-        console.log(error)
-    }
-})
 
 
 
 
+
+async function getTable(){
+    let table = document.getElementById('accountsTable')
+    return table
+}
 

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../styles/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  </script>
+  <title>Criar Conta</title>
+</head>
+<body>
+  <div style="display:flex;width:100%;height:100vh; justify-content:center;align-items: center;">
+    <div class="row g-2 w-50">
+      <div class="col-sm-6">
+        <div class="form-floating">
+          <select class="form-select" id="transType">
+            <option value="">Selecione</option>
+            <option value="credit">Crédito</option>
+            <option value="debit">Débito</option>
+          </select>
+          <label for="transType">Tipo da Operação</label>
+          <div id="error-trans-type" class="invalid-feedback">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-floating">
+          <input type="date" class="form-control" id="transDate" placeholder="Data do Saldo">
+          <label for="transDate">Data da Operação</label>
+          <div id="error-trans-date" class="invalid-feedback">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="form-floating">
+          <select class="form-select" id="transOwner" onblur="loadAccount(this.value)">
+          </select>
+          <label for="transOwner">Proprietário</label>
+          <div id="error-trans-owner" class="invalid-feedback">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-floating">
+          <select class="form-select" id="transAccount">
+          </select>
+          <label for="transAccount">Conta</label>
+          <div id="error-trans-account" class="invalid-feedback">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="transAmount" placeholder="Saldo Atual"
+            onkeydown="handleAmount(event,this.value)">
+          <label for="transAmount">Valor da Operação</label>
+          <div id="error-trans-amount" class="invalid-feedback">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="transDescription" placeholder="Saldo Atual">
+          <label for="transDescription">Descrição</label>
+          <div id="error-trans-description" class="invalid-feedback">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-floating">
+          <button class="btn btn-danger w-100" onclick="backHome(event)">Voltar</button>
+          <div id="error-message-date" class="invalid-feedback">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-floating">
+          <button class="btn btn-primary w-100" onclick="insertOperation(event)">Cadastrar</button>
+          <div id="error-message-date" class="invalid-feedback">
+          </div>
+        </div>
+      </div>
+      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <img src="../assets/logo.png" class="rounded me-2" style="width:32px;height: 32px;" alt="...">
+            <strong class="me-auto">Opção</strong>
+            <small id="date-time"></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div id="notification" class="toast-body">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../scripts/renderer.js"></script>
+  <script src="../scripts/addTransaction.js"></script>
+</body>
+
+</html>

@@ -58,6 +58,15 @@ class Account {
         }
     }
 
+    static async delete(accountNumber) {
+        try {
+            return userHandle.deleteAccount(accountNumber)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+    
 
 }
 

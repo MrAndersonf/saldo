@@ -1,0 +1,184 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box
+}
+
+.buttonAdd {
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+label {
+  color: black;
+  font-weight: 400;
+}
+
+.header-fixed {
+  width: 100%;
+}
+
+.button {
+  width: 30%;
+  background: #4285f4;
+  color: #ffffff;
+  font-size: 15px;
+  margin-vertical: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.button:active {
+  opacity: 0.7;
+}
+
+.shippingDriver {
+  width: 27%;
+}
+
+.nameDriver {
+  width: 28%;
+}
+
+.actionDriver {
+  width: 12%;
+}
+
+.idDriver {
+  width: 13%;
+}
+
+.ufDriver {
+  width: 5%;
+}
+
+.plateDriver {
+  width: 9%;
+}
+
+.buttonsDriver {
+  display: flex;
+  flex-direction: row;
+  width: 18%;
+}
+
+.header-fixed>thead, .header-fixed>tbody, .header-fixed>thead>tr, .header-fixed>tbody>tr, .header-fixed>thead>tr>th, .header-fixed>tbody>tr>td {
+  display: block;
+  font-size: 15px;
+}
+
+.header-fixed>tbody>tr:after, .header-fixed>thead>tr:after {
+  content: " ";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+.header-fixed>tbody {
+  overflow-y: auto;
+  height: 65vh;
+}
+
+.header-fixed>tbody>tr>td, .header-fixed>thead>tr>th {
+  float: left;
+}
+
+.names {
+  width: 12%;
+  font-size: 15px;
+}
+
+.bank {
+  width: 12%;
+}
+
+.date {
+  width: 7%;
+  font-size: 15px;
+}
+
+.account {
+  width: 7%;
+}
+
+
+
+.debit {
+  width: 12%;
+  color: red;
+  font-weight: 700;
+}
+
+.credit {
+  width: 11%;
+  color: blue;
+  font-weight: 700;
+}
+
+.saldLabel {
+  width: 9%;
+  font-weight: 700;
+}
+
+.sald {
+  width: 14%;
+  color: green;
+  font-weight: 700;
+}
+
+.debitLabel {
+  width: 11%;
+}
+
+.creditLabel {
+  width: 11%;
+}
+
+
+
+.historic {
+  width: 25%;
+}
+
+.driver {
+  width: 37%;
+}
+
+.action {
+  width: 16%;
+}
+
+.inputTare {
+  width: 100%;
+  height: 24px;
+  border: none;
+}
+
+.alert {
+  color: red;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  width: 18%;
+}
+
+.type {
+  width: 18%;
+}
+
+.name {
+  width: 58%;
+}
+
+.action {
+  width: 18%;
+}
+
+.buttonsShipping {
+  display: flex;
+  flex-direction: row;
+  width: 18%;
+}

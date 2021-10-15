@@ -6,7 +6,6 @@ const ofx = require('node-ofx-parser');
 
 
 let table = document.getElementById('accountsTable')
-console.log(table)
 
 
 function importBankStatement() {

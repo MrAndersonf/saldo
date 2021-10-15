@@ -81,7 +81,7 @@
 
   <div
     style="display:flex; width:100%; height:5vh; margin-top:0px; background-color:blueviolet;justify-content: flex-start;">
-    <button class="btn btn-danger w-50">Cancelar Importação</button>
+    <button class="btn btn-danger w-50" onclick="backToHome(event)">Voltar para Menu Home</button>
     <button class="btn btn-success w-50" onclick="incorporate(event)">Incorporar Extrato Bancário</button>
   </div>
 
@@ -94,36 +94,14 @@
           src="https://lh3.googleusercontent.com/--qf6ZRyi43E/XgYzJDAhRAI/AAAAAAAADzA/UgPD3Z1cPOYA_LFIu5HDqsJKd5yFXZbogCEwYBhgLKtADABHVOhzSzAsHdsJ612qeUeV0in1GEWd1OisUI5zsgKPX8E2XsnFKvchFkpzpOmLVOb63FYfo111AfOGQn7cDGGBm_K4xpc79vVQysNZiD8rhD0mN5GnJtdc8KPTMvtFQ3xWH_Ik3KyG0570nAj2LLoKKea2Tu9eQry6EOmGsO7Z_LvjDrAJHRdsRuoVrm-ArlaFAQ9Y4z9RfO265PH1gjYzrGiCjab1JhUngBE23MSSLV_nRR3D3Aa9kpDo-mRBogLi3CTMyapTE4kL_IZTznedvMsxLRYyklU192mP7GfG7KvJxaGLWruVnowWhxxOLcF5FD1iPCL3YGdk4OB2ZhSc0HYESVW-NMCOlQB7lE9jC1HbIITyOjFNTTizOR5bkiX0MS3LE3AqAw87t_bbwz9TL6Ei8APIVDpbIV-HkBDE-ieUuPdA8oYFDLTiOIdLlwSSAsB5-YYRvdAv0hAI7oHEjEBd67UIAlTnlSMGXp4vAzIfsLj5mpOaZqrWEcLrakyqotgMWtuo_J-QzA_v-dsnIFe2bewFkxUZ-MJILqj7spgWZUJdQos10dTF5BKeqAy0VFRmXYGrNcnoQSJVOsTI-fGdB8pAYQ2ZXP0T6QOUwj6uEiQY/w32-h32-p/Logo%2Brinc%25C3%25A3o%2B%25281%2529.jpg"
           class="rounded me-2" alt="..." />
         <strong class="me-auto">Fazenda Rincão Gaúcho</strong>
-        <small><span id="spanTime"></span></small>
+        <small><span id="date-time"></span></small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
-      <div class="toast-body">Operação realizada com sucesso.</div>
+      <div class="notification" id="notification"></div>
     </div>
   </div>
 
-  <div class="modal fade" id="accountSelectionModal" tabindex="-1" aria-labelledby="createAccountLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createAccountLabel">Selecionar Conta</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-2">
-            <div class="col-md-12">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="accountStatement" placeholder="Proprietário">
-                <label for="accountStatement">Associar Extrato com a conta</label>
-                <div id="error-message-owner" class="invalid-feedback">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
 
 

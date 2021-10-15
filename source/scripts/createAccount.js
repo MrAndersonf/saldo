@@ -1,5 +1,3 @@
-
-
 const User = require(path.resolve(__dirname, '../models/User.js'))
 const Bank = require(path.resolve(__dirname, '../models/Bank.js'))
 const Account = require(path.resolve(__dirname, '../models/Account.js'))
@@ -13,16 +11,30 @@ window.addEventListener('load', function () {
 
 async function insertUser() {
   let userName = document.getElementById('userName')
-  if (userName.value.length > 2) {
+  let userImage = document.getElementById('userImage')
+  if (userName.value.length > 2 && userName.value.length != "") {
     userName.classList.remove('is-invalid');
-    await User.create({ name: userName.value })
+    await User.create({ name: userName.value, image: userImage.value })
     ipcRenderer.send('new-user-created', { title: "Sucesso", body: "Banco criado com sucesso" })
     modalCreateUserHide()
   } else {
     userName.classList.add('is-invalid');
-    document.getElementById('error-message').innerText = "O nome deve conter no mínimo 3 caracteres."
+    userImage.classList.add('is-invalid');
+    document.getElementById('error-message-image').innerText = "selecione arquivo de imagem."
+    document.getElementById('error-message-name').innerText = "O nome deve conter no mínimo 3 caracteres."
   }
 }
+
+function selectImage(e){
+  e.preventDefault();
+  ipcRenderer.send('select-image-user')
+}
+
+ipcRenderer.on('selected-image',(event,data)=>{
+  console.log(data)
+  document.getElementById('userImage').value = data
+})
+
 
 async function insertAccount(e) {
   e.preventDefault()
@@ -77,7 +89,8 @@ async function insertAccount(e) {
       digit: digit.value,
       balance: {
         date: new Date(date.value),
-        amount: balance.value,
+        now: (Currency.sanitizeCurrency(balance.value)/100).toString(),
+        then: (Currency.sanitizeCurrency(balance.value)/100).toString(),
       },
       status: "active"
     })
@@ -172,7 +185,6 @@ function handleChange(input) {
 async function loadUsers() {
   try {
     let list = await User.list()
-    console.log(list)
     if (list.length <= 0) {
       return
     }
@@ -219,11 +231,6 @@ async function loadBanks() {
   option.style = "color:white; background-color: green"
   select.appendChild(option)
 }
-
-
-
-
-
 
 
 var modalCreateUser = new bootstrap.Modal(document.getElementById('createUser'))
